@@ -1,0 +1,24 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/doc/**/*",
+    "**/__test__/**/*",
+    "**/__test__/**/*.test.*",
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "es5",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
