@@ -1,4 +1,7 @@
 {
   "extends": "stylelint-config-standard",
-  "ignoreFiles": ["node_modules/**/*"]
+  "ignoreFiles": ["node_modules/**/*"],
+  "rules": {
+    "selector-type-no-unknown": null
+  }
 }

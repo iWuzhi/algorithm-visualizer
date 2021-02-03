@@ -18,4 +18,7 @@ const insertSort = (source: number[]): typeof source => {
   }
   return source;
 };
-export default insertSort;
+
+export default insertSort; // @source exclude
+
+// insertSort([3, 2, 1]);  // @source include

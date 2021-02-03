@@ -10,6 +10,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /algorithms\/.+\.ts$/,
+        type: 'asset/source'
+      },
+      {
         test: /\.(ts|tsx|js)$/,
         loader: 'babel-loader',
         include: [path.resolve(process.cwd(), 'src')],

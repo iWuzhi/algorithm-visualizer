@@ -4,16 +4,27 @@
  */
 
 import React from 'react';
-import { Button } from 'gk-rc';
+import { useStyles } from './style';
+import CodeEditor from '@/components/CodeEditor';
 
-interface IProps {
-
-}
+interface IProps {}
 
 const App: React.FC<IProps> = () => {
+  const styles = useStyles();
   return (
-    <Button>你好</Button>
-  )
-}
+    <>
+      <header className={styles.header}></header>
+      <main className={styles.main}>
+        <nav></nav>
+        <section>
+          <div className={styles.visualizer}></div>
+          <div className={styles.code}>
+            <CodeEditor />
+          </div>
+        </section>
+      </main>
+    </>
+  );
+};
 
 export default App;
