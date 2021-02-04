@@ -24,6 +24,7 @@ export const useStyles = makeStyles({
   visualizer: {
     flexGrow: 2,
   },
+
   code: {
     flexGrow: 2,
     backgroundColor: '#eee',
