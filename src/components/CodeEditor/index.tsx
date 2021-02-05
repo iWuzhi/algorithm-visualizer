@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AceEditor from 'react-ace';
 
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/theme-github';
 
-import insertSortCode from '../../algorithms/sort/insert-sort';
+interface IProps {
+  value: string;
+  onChange: (val: string) => void;
+}
 
 // TODO: toString ingore ts error
 // TODO: Webpack asstet/source 格式太对
-const sourceCode = insertSortCode
-  .toString()
-  .split('\n')
-  .reduce((target, line) => {
+const getCode = (source: string): string => {
+  const lineArr = source.split('\n').reduce((target, line) => {
     if (line.includes('@source include')) {
       target.push(line.replace(/^\/\/\s+/, ''));
     } else if (!line.includes('@source exclude')) {
@@ -19,11 +20,18 @@ const sourceCode = insertSortCode
     }
     return target;
   }, []);
+  return lineArr.join('\n');
+};
 
-const CodeEditor = () => {
-  const onChange = (newValue: any) => {
-    console.log('change', newValue);
+const CodeEditor: React.FC<IProps> = (props) => {
+  const { value } = props;
+  const onChange = (val: string) => {
+    props.onChange(getCode(val));
   };
+
+  useEffect(() => {
+    onChange(value);
+  }, []);
   return (
     <AceEditor
       mode="javascript"
@@ -34,7 +42,7 @@ const CodeEditor = () => {
       height="100%"
       width="100%"
       editorProps={{ $blockScrolling: true }}
-      value={sourceCode.join('\n')}
+      value={value}
     />
   );
 };
