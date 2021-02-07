@@ -13,6 +13,8 @@ import TwoDSort, { IRef as TwoDSortIRef } from '@/components/visualizes/TwoDSort
 import insertSortCode from '@/algorithms/sort/insert-sort';
 import Toolbar from '@/components/Toolbar';
 
+import Nav from './Nav';
+
 import { useStyles } from './style';
 const theme = createMuiTheme({});
 
@@ -79,7 +81,7 @@ const App: React.FC<unknown> = () => {
       </header>
 
       <main className={cx(styles.main, 'flex')}>
-        <nav className="border-r p-3 border-gray-300"></nav>
+        <Nav />
         <section className="flex flex-col flex-grow">
           <Toolbar
             actions={[
