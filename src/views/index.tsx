@@ -4,13 +4,17 @@
  */
 
 import React, { useRef, useState } from 'react';
-import { Button } from 'gk-rc';
+import cx from 'classnames';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { green, purple } from '@material-ui/core/colors';
 
 import CodeEditor from '@/components/CodeEditor';
 import TwoDSort, { IRef as TwoDSortIRef } from '@/components/visualizes/TwoDSort';
 import insertSortCode from '@/algorithms/sort/insert-sort';
+import Toolbar from '@/components/Toolbar';
 
 import { useStyles } from './style';
+const theme = createMuiTheme({});
 
 const App: React.FC<unknown> = () => {
   const styles = useStyles();
@@ -63,24 +67,45 @@ const App: React.FC<unknown> = () => {
     });
   };
   return (
-    <>
-      <header className={styles.header}>
-        <Button variant="contained" color="primary" className="float-right" onClick={onPlay}>
-          Play
-        </Button>
+    <ThemeProvider theme={theme}>
+      <header
+        className={cx(
+          styles.header,
+          'shadow-md',
+          'flex items-center justify-center text-green-500 font-serif italic font-semibold tracking-wide'
+        )}
+      >
+        ALGORITHM VISUALIZER
       </header>
-      <main className={styles.main}>
-        <nav></nav>
-        <section>
-          <div className={styles.visualizer}>
-            <TwoDSort ref={viewRef} source={source} />
-          </div>
-          <div className={styles.code}>
-            <CodeEditor value={code} onChange={onCodeChange} />
+
+      <main className={cx(styles.main, 'flex')}>
+        <nav className="border-r p-3 border-gray-300"></nav>
+        <section className="flex flex-col flex-grow">
+          <Toolbar
+            actions={[
+              {
+                name: 'Reset',
+                type: 'secondary',
+                onClick: onPlay,
+              },
+              {
+                name: 'Play',
+                type: 'primary',
+                onClick: onPlay,
+              },
+            ]}
+          />
+          <div className="flex flex-grow">
+            <div className="flex-grow">
+              <TwoDSort ref={viewRef} source={source} />
+            </div>
+            <div className="flex-grow">
+              <CodeEditor value={code} onChange={onCodeChange} />
+            </div>
           </div>
         </section>
       </main>
-    </>
+    </ThemeProvider>
   );
 };
 
