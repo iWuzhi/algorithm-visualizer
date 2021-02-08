@@ -101,10 +101,10 @@ const App: React.FC<unknown> = () => {
                 ]}
               />
               <div className="flex flex-grow">
-                <div className="flex-grow">
+                <div className="w-1/2 flex-grow flex-shrink-0">
                   <TwoDSort ref={viewRef} source={source} />
                 </div>
-                <div className="flex-grow">
+                <div className="w-1/2 flex-grow flex-shrink-0">
                   <CodeEditor value={code} onChange={onCodeChange} />
                 </div>
               </div>

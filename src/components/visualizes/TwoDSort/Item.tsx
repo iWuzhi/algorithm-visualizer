@@ -9,10 +9,12 @@ interface IItem {
   h: number; // sort number
   color?: string;
   style?: React.CSSProperties;
+  ref: React.RefObject<HTMLDivElement>;
 }
+
 export type IItems = IItem[];
 
-const Item: React.FC<IItem> = ({ h, style }, ref) => {
+const Item: React.ForwardRefRenderFunction<HTMLDivElement, IItem> = ({ h, style }, ref) => {
   return (
     <div
       className="absolute bottom-0 bg-yellow-200 text-green-400 text-center"
@@ -24,4 +26,4 @@ const Item: React.FC<IItem> = ({ h, style }, ref) => {
   );
 };
 
-export default forwardRef(Item);
+export default forwardRef<HTMLDivElement, IItem>(Item);

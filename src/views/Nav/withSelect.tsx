@@ -20,8 +20,8 @@ const ItemsConfig = [
   },
 ];
 
-const withSelect = (NavFC: React.FC<IProps & ISelect>): React.ComponentType<IProps> => {
-  const WithSelectNav = (props: IProps & unknown) => {
+const withSelect = (NavFC: React.FC<IProps & ISelect>): React.FC<unknown> => {
+  const WithSelectNav = (props: unknown) => {
     const { category: activeKey } =
       useRouteMatch<{
         category: string;

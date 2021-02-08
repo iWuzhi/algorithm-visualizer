@@ -18,7 +18,7 @@ interface IItem {
 }
 export interface IProps {
   activeKey: string;
-  items: IItem[];
+  items?: IItem[];
 }
 
 const ItemsConfig: { [key: string]: unknown[] } = {
