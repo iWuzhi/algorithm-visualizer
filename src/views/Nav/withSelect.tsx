@@ -3,7 +3,8 @@
  * date 2021-02-07 21:02:42
  */
 
-import React, { useState } from 'react';
+import React from 'react';
+import { NavLink as Link, useRouteMatch, Redirect } from 'react-router-dom';
 import { Select, MenuItem } from '@material-ui/core';
 
 import { IProps } from '.';
@@ -20,19 +21,19 @@ const ItemsConfig = [
 ];
 
 const withSelect = (NavFC: React.FC<IProps & ISelect>): React.ComponentType<IProps> => {
-  const WithSelectNav = (props: IProps) => {
-    const [activeKey, setActiveKey] = useState<string>('sort');
+  const WithSelectNav = (props: IProps & unknown) => {
+    const { category: activeKey } =
+      useRouteMatch<{
+        category: string;
+      }>('/:category')?.params || {};
 
-    const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setActiveKey(e.target.value);
-    };
-
+    if (!activeKey) return <Redirect to="/sort" />;
     const select = (
-      <Select value={activeKey} onChange={onChange}>
+      <Select value={activeKey}>
         {ItemsConfig.map(({ key, name }) => {
           return (
             <MenuItem key={key} value={key}>
-              {name}
+              <Link to={`/${key}`}>{name}</Link>
             </MenuItem>
           );
         })}

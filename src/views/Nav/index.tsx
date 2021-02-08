@@ -3,7 +3,8 @@
  * date 2021-02-07 21:02:42
  */
 
-import React, { useState } from 'react';
+import React from 'react';
+import { NavLink as Link, Redirect, useRouteMatch } from 'react-router-dom';
 import cx from 'classnames';
 import { MenuItem, MenuList } from '@material-ui/core';
 
@@ -35,16 +36,17 @@ const ItemsConfig: { [key: string]: unknown[] } = {
 const Nav: React.FC<IProps & ISelect> = (props) => {
   const { select, activeKey } = props;
 
-  const [selectdKey, setSelecteddKey] = useState<string>('insert');
+  const { section: selectdKey } =
+    useRouteMatch<{
+      category: string;
+      section: string;
+    }>('/:category/:section')?.params || {};
 
   const styles = useStyles();
 
   const subItems = ItemsConfig[activeKey] || [];
 
-  const onItemClick = (e: React.MouseEvent<HTMLElement>, key: string) => {
-    e.preventDefault();
-    setSelecteddKey(key);
-  };
+  if (!selectdKey) return <Redirect to={`/${activeKey}/insert`} />;
 
   return (
     <nav className={cx(styles.nav, 'border-r p-3 border-gray-300')}>
@@ -52,8 +54,14 @@ const Nav: React.FC<IProps & ISelect> = (props) => {
       <MenuList style={{ marginTop: 8 }}>
         {subItems.map(({ key, name }) => {
           return (
-            <MenuItem key={key} selected={selectdKey === key} onClick={(e) => onItemClick(e, key)}>
-              {name}
+            <MenuItem key={key} selected={selectdKey === key}>
+              <Link
+                to={`/${activeKey}/${key}`}
+                className="block w-full"
+                activeClassName="text-green-300"
+              >
+                {name}
+              </Link>
             </MenuItem>
           );
         })}

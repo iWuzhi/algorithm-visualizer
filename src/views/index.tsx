@@ -4,6 +4,7 @@
  */
 
 import React, { useRef, useState } from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import cx from 'classnames';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green, purple } from '@material-ui/core/colors';
@@ -70,43 +71,47 @@ const App: React.FC<unknown> = () => {
   };
   return (
     <ThemeProvider theme={theme}>
-      <header
-        className={cx(
-          styles.header,
-          'shadow-md',
-          'flex items-center justify-center text-green-500 font-serif italic font-semibold tracking-wide'
-        )}
-      >
-        ALGORITHM VISUALIZER
-      </header>
+      <Router>
+        <header
+          className={cx(
+            styles.header,
+            'shadow-md',
+            'flex items-center justify-center text-green-500 font-serif italic font-semibold tracking-wide'
+          )}
+        >
+          ALGORITHM VISUALIZER
+        </header>
 
-      <main className={cx(styles.main, 'flex')}>
-        <Nav />
-        <section className="flex flex-col flex-grow">
-          <Toolbar
-            actions={[
-              {
-                name: 'Reset',
-                type: 'secondary',
-                onClick: onPlay,
-              },
-              {
-                name: 'Play',
-                type: 'primary',
-                onClick: onPlay,
-              },
-            ]}
-          />
-          <div className="flex flex-grow">
-            <div className="flex-grow">
-              <TwoDSort ref={viewRef} source={source} />
-            </div>
-            <div className="flex-grow">
-              <CodeEditor value={code} onChange={onCodeChange} />
-            </div>
-          </div>
-        </section>
-      </main>
+        <main className={cx(styles.main, 'flex')}>
+          <Nav />
+          <Route path="/:category/:section">
+            <section className="flex flex-col flex-grow">
+              <Toolbar
+                actions={[
+                  {
+                    name: 'Reset',
+                    type: 'secondary',
+                    onClick: onPlay,
+                  },
+                  {
+                    name: 'Play',
+                    type: 'primary',
+                    onClick: onPlay,
+                  },
+                ]}
+              />
+              <div className="flex flex-grow">
+                <div className="flex-grow">
+                  <TwoDSort ref={viewRef} source={source} />
+                </div>
+                <div className="flex-grow">
+                  <CodeEditor value={code} onChange={onCodeChange} />
+                </div>
+              </div>
+            </section>
+          </Route>
+        </main>
+      </Router>
     </ThemeProvider>
   );
 };
